@@ -1,0 +1,78 @@
+{% extends "main.html" %}
+{% block content %}
+	<div class="row top-menu">
+		<div class="col-md-10"></div>
+		<div class="col-md-2 text-right">
+			<a href="{{url_for('showLogin')}}">Click Here to Log in </a>
+		</div>
+	</div>
+	<div class="row divider blue">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner main">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+			<h1>Designer Catalog</h1>
+		</div>
+	</div>
+
+	<div class = 'flash'>
+		      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+<table border=5><col width="500px"><col width="1000px">
+	<tbody>
+		<tr>
+			<td><center><strong><h1>Categories</h1></strong></center>
+			<div class="row padding-top padding-bottom">
+				<div class="col-md-1"></div>
+				<div class="col-md-10 padding-none">
+			
+			</div>
+		<div class="col-md-1"></div>
+		</div>
+	{% for categories in category %}
+	<a href = "{{url_for('showCategoriesItem', categories_id = categories.id)}}">
+			<div class="row">
+				<div class="col-md-1"></div>
+					<div class="col-md-10 restaurant-list">
+					<h3>{{categories.name}}</h3></div>
+				<div class="col-md-1"></div>
+			</div>
+			<br>
+		</a>
+	{% endfor %}
+			</td>
+	<td><center><strong><h1>Latest Items </h1><strong></center>
+		{% for categories_item in latestitem %}
+		<div class="row">
+					<div class="col-md-1"></div>
+						<div class="col-md-10 restaurant-list">
+							{% if categories_item.categories_id==1 %}
+								<a href = "{{url_for('showCategoriesItemDetail', categories_id =1, categoriesitem_id =categories_item.id)}}">
+								<h2>{{categories_item.name}}</h2>
+								<h5>Arab Designer</h5>
+								<h6>{{categories_item.course}}</h6>
+							{% else %}
+								<a href = "{{url_for('showCategoriesItemDetail', categories_id =2, categoriesitem_id =categories_item.id)}}">
+								<h2>{{categories_item.name}}</h2>
+								<h5> Foreigner Designer</h5>
+								<h6>{{categories_item.course}}</h6>
+							{% endif %}
+						</div>
+					<div class="col-md-1"></div>
+				</div>
+				<br>
+
+		{% endfor %}
+</td></tr></tbody></table>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>Designer Catalog<h1>
+
+		</div>
+	</div>
+
+<div class = 'flash'>
+		      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+			
+			<a href="{{url_for('newCategoriesItem', categories_id = categories.id )}}">
+				<button class="btn btn-default" id="new-menu-item">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add  new Item
+				</button>
+			</a>
+		</div>
+		<div class="col-md-7"></div>
+		</div>
+	<table border=5><col width="500px"><col width="1000px">
+	<tbody>
+		<tr>
+			<td><center><strong><h1>Categories</h1></strong></center>
+				<div class="row padding-top padding-bottom">
+				<div class="col-md-1"></div>
+				<div class="col-md-10 padding-none">
+			
+			</div>
+		<div class="col-md-1"></div>
+		</div>
+	{% for categories in category %}
+	<a href = "{{url_for('showCategoriesItem', categories_id = categories.id)}}">
+			<div class="row">
+				<div class="col-md-1"></div>
+					<div class="col-md-10 restaurant-list">
+					<h3>{{categories.name}}</h3></div>
+				<div class="col-md-1"></div>
+			</div>
+			<br>
+		</a>.
+
+	{% endfor %}
+			</td>
+			<td>
+		{% if items !=[] %}	
+		<div class="row"><center><h1>{{categories.name}}</h1></center>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+
+				
+					<h2>Men</h2>
+					{% for i in items %}
+						{% if i.course == 'Men' %}
+						
+							<div class="menu-item">
+							<a href = "{{url_for('showCategoriesItemDetail', categories_id = categories.id, categoriesitem_id =i.id)}}"><h3>{{i.name}}</h3></a>
+							</div>
+						{% endif %}
+					{% endfor %}
+					
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+					<h2>Women</h2>
+					{% for i in items %}
+						{% if i.course == 'Women' %}
+						
+							<div class="menu-item">
+							<a href = "{{url_for('showCategoriesItemDetail', categories_id = categories.id, categoriesitem_id =i.id)}}"><h3>{{i.name}}</h3></a>
+							</div>
+						{% endif %}
+					{% endfor %}
+					
+			</div>
+			
+		{% endif %}
+</td></tr></tbody></table>
+{% endblock %}
